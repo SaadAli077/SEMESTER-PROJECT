@@ -240,6 +240,68 @@ void cancelBooking(Flight flights[], int numFlights) {
     }
 }
 
+// Function to add a new flight
+void addFlight(Flight flights[], int& numFlights) {
+    const string ADMIN_PASSWORD = "admin123";
+    int attempts = 0;
+
+    while (attempts < 3) {
+        string enteredPassword;
+        cout << "Enter admin password: ";
+        cin >> enteredPassword;
+
+        if (enteredPassword == ADMIN_PASSWORD) {
+            break;
+        } else {
+            attempts++;
+            cout << "Incorrect password. Attempts left: " << (3 - attempts) << "\n";
+        }
+    }
+
+    if (attempts == 3) {
+        cout << "Access denied. Maximum attempts reached.\n";
+        return;
+    }
+
+    if (numFlights >= 100) {
+        cout << "Cannot add more flights. Maximum limit reached.\n";
+        return;
+    }
+
+    Flight newFlight;
+    cout << "Enter flight number: ";
+    cin >> newFlight.flightNumber;
+    cout << "Enter destination: ";
+    cin >> newFlight.destination;
+    cout << "Enter departure time (HH:MM): ";
+    cin >> newFlight.departureTime;
+    cout << "Enter arrival time (HH:MM): ";
+    cin >> newFlight.arrivalTime;
+    cout << "Enter number of Economy seats available: ";
+    cin >> newFlight.economySeatsAvailable;
+    cout << "Enter number of Business seats available: ";
+    cin >> newFlight.businessSeatsAvailable;
+
+    flights[numFlights] = newFlight;
+    numFlights++;
+
+    saveFlights(flights, numFlights);
+    cout << "Flight added successfully.\n";
+}
+
+// Function to save booking record to a file
+void saveBookingRecord(const Passenger& passenger) {
+    ofstream file("bookings.txt", ios::app);
+    if (!file) throw runtime_error("Failed to open bookings.txt.");
+
+    file << passenger.flightNumber << " " << passenger.name << " "
+         << passenger.bookingDate << " " << passenger.phoneNumber << " "
+         << passenger.age << " " << passenger.flyingClass << "\n";
+
+    file.close();
+}
+
+
 void saveBookingRecord(const Passenger& passenger) {
 ofstream file("bookings.txt", ios::app);
 if (!file) throw runtime_error("Failed to open bookings.txt.");
