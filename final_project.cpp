@@ -13,3 +13,12 @@ int businessSeatsAvailable;
 string departureTime;
 string arrivalTime;
 };
+
+struct Passenger {
+string name;
+int flightNumber;
+string bookingDate;
+string phoneNumber;
+int age;
+string flyingClass;
+};
