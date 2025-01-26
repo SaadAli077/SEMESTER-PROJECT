@@ -5,3 +5,11 @@
 
 using namespace std;
 
+struct Flight {
+int flightNumber;
+string destination;
+int economySeatsAvailable;
+int businessSeatsAvailable;
+string departureTime;
+string arrivalTime;
+};
