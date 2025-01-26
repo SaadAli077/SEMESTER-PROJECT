@@ -204,6 +204,41 @@ void bookFlight(Flight flights[], int numFlights) {
     }
 }
 
+// Function to cancel a booking
+void cancelBooking(Flight flights[], int numFlights) {
+    int flightNumber;
+    cout << "Enter the flight number to cancel booking: ";
+    cin >> flightNumber;
+
+    bool flightFound = false;
+    for (int i = 0; i < numFlights; i++) {
+        if (flights[i].flightNumber == flightNumber) {
+            flightFound = true;
+
+            string flyingClass;
+            cout << "Enter flying class (Economy/Business) for cancellation: ";
+            cin >> flyingClass;
+
+            if (flyingClass == "Economy") {
+                flights[i].economySeatsAvailable++;
+            } else if (flyingClass == "Business") {
+                flights[i].businessSeatsAvailable++;
+            } else {
+                cout << "Invalid flying class.\n";
+                return;
+            }
+
+            cout << "Booking canceled successfully! Seats available - Economy: " 
+                 << flights[i].economySeatsAvailable
+                 << ", Business: " << flights[i].businessSeatsAvailable << "\n";
+            return;
+        }
+    }
+
+    if (!flightFound) {
+        cout << "Flight number not found. Please try again.\n";
+    }
+}
 
 void saveBookingRecord(const Passenger& passenger) {
 ofstream file("bookings.txt", ios::app);
