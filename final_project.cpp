@@ -74,6 +74,23 @@ string flyingClass;
 }
 
 
+void displayFlights(const Flight flights[], int numFlights) {
+cout << "\nAvailable Flights:\n";
+cout << "Flight Number Destination Economy Seats Business Seats Departure
+Time Arrival Time\n";
+cout << "------------------------------------------------------------------------------------------\n";
+for (int i = 0; i < numFlights; i++) {
+cout << flights[i].flightNumber << " "
+<< flights[i].destination << " "
+<< flights[i].economySeatsAvailable << " "
+<< flights[i].businessSeatsAvailable << " "
+<< flights[i].departureTime << " "
+<< flights[i].arrivalTime << "\n";
+}
+}
+
+
+
 void viewBookingRecords() {
 ifstream file("bookings.txt");
 if (!file) {
