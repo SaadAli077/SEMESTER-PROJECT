@@ -41,6 +41,37 @@ string flyingClass;
                 cout << "Invalid input. Please enter a number between 1 and 6.\n"; 
                 continue; 
             }
+            
+      switch (choice) { 
+                case 1: 
+                    displayFlights(flights, numFlights); 
+                    break; 
+                case 2: 
+                    bookFlight(flights, numFlights); 
+                    break; 
+                case 3: 
+                    cancelBooking(flights, numFlights); 
+                    break; 
+                case 4: 
+                    addFlight(flights, numFlights); 
+                    break; 
+                case 5: 
+                    viewBookingRecords(); 
+                    break; 
+                case 6: 
+                    saveFlights(flights, numFlights); 
+                    cout << "Exiting the system. Goodbye!\n"; 
+                    break; 
+                default: 
+                    cout << "Invalid choice. Please try again.\n"; 
+            } 
+        } while (choice != 6); 
+    } catch (const exception& e) { 
+        cerr << "Error: " << e.what() << endl; 
+    } 
+ 
+    return 0; 
+}
 
 
 void viewBookingRecords() {
