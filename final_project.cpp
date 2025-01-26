@@ -6,21 +6,21 @@
 using namespace std;
 
 struct Flight {
-int flightNumber;
-string destination;
-int economySeatsAvailable;
-int businessSeatsAvailable;
-string departureTime;
-string arrivalTime;
+	int flightNumber;
+	string destination;
+	int economySeatsAvailable;
+	int businessSeatsAvailable;
+	string departureTime;
+	string arrivalTime;
 };
 
 struct Passenger {
-string name;
-int flightNumber;
-string bookingDate;
-string phoneNumber;
-int age;
-string flyingClass;
+	string name;
+	int flightNumber;
+	string bookingDate;
+	string phoneNumber;
+	int age;
+	string flyingClass;
 };
 
 void loadFlights(Flight flights[], int& numFlights);
@@ -32,8 +32,18 @@ void addFlight(Flight flights[], int& numFlights);
 void saveBookingRecord(const Passenger& passenger);
 void viewBookingRecords();
 
+int main(){
 
- int choice; 
+ int choice;
+	  const int MAX_FLIGHTS = 100;
+    Flight flights[MAX_FLIGHTS];
+    int numFlights = 0;
+
+    try {
+        // Load flights from file
+        loadFlights(flights, numFlights);
+        
+        int choice; 
         do { 
             cout << "\n--- Flight Reservation System ---\n"; 
             cout << "1. View Available Flights\n"; 
@@ -83,6 +93,7 @@ void viewBookingRecords();
     return 0; 
 }
 
+
 // Function to load flights from a file
 void loadFlights(Flight flights[], int& numFlights) {
     ifstream file("flights.txt");
@@ -125,7 +136,7 @@ void saveFlights(const Flight flights[], int numFlights) {
 
     file.close();
 }
-
+//for displaying available flights
 void displayFlights(const Flight flights[], int numFlights) {
     cout << "\nAvailable Flights:\n";
     cout << "Flight Number    Destination        Economy Seats    Business Seats    Departure Time    Arrival Time\n";
@@ -301,32 +312,23 @@ void saveBookingRecord(const Passenger& passenger) {
     file.close();
 }
 
-
-void saveBookingRecord(const Passenger& passenger) {
-ofstream file("bookings.txt", ios::app);
-if (!file) throw runtime_error("Failed to open bookings.txt.");
-file << passenger.flightNumber << " " << passenger.name << " "
-<< passenger.bookingDate << " " << passenger.phoneNumber << " "
-<< passenger.age << " " << passenger.flyingClass << "\n";
-file.close();
-}
-
 void viewBookingRecords() {
-ifstream file("bookings.txt");
-if (!file) {
-cout << "No booking records found.\n";
-return;
+    ifstream file("bookings.txt");
+    if (!file) {
+        cout << "No booking records found.\n";
+        return;
+    }
+
+    cout << "\nBooking Records:\n";
+    cout << "Flight Number  Name            Booking Date        Phone Number         Age     Flying Class\n";
+    cout << "--------------------------------------------------------------------------------------------\n";
+
+    Passenger p;
+    while (file >> p.flightNumber >> p.name >> p.bookingDate >> p.phoneNumber >> p.age >> p.flyingClass) {
+        cout << p.flightNumber << "              " << p.name << "            " 
+             << p.bookingDate << "          " << p.phoneNumber << "          " 
+             << p.age << "      " << p.flyingClass << "\n";
+    }
+    file.close();
 }
-cout << "\nBooking Records:\n";
-cout << "Flight Number Name Booking Date Phone Number Age Flying
-Class\n";
-cout << "--------------------------------------------------------------------------------------------\n";
-Passenger p;
-while (file >> p.flightNumber >> p.name >> p.bookingDate >> p.phoneNumber >> p.age >>
-p.flyingClass) {
-cout << p.flightNumber << " " << p.name << " "
-<< p.bookingDate << " " << p.phoneNumber << " "
-<< p.age << " " << p.flyingClass << "\n";
-}
-file.close();
-}
+
