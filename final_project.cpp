@@ -23,6 +23,26 @@ int age;
 string flyingClass;
 };
 
+ int choice; 
+        do { 
+            cout << "\n--- Flight Reservation System ---\n"; 
+            cout << "1. View Available Flights\n"; 
+            cout << "2. Book a Flight\n"; 
+            cout << "3. Cancel a Booking\n"; 
+            cout << "4. Add a New Flight (Admin)\n"; 
+            cout << "5. View Booking Records\n"; 
+            cout << "6. Exit\n"; 
+            cout << "Enter your choice: "; 
+ 
+            // Validate menu choice input 
+            if (!(cin >> choice)) { 
+                cin.clear(); 
+                cin.ignore(10000, '\n'); 
+                cout << "Invalid input. Please enter a number between 1 and 6.\n"; 
+                continue; 
+            }
+
+
 void viewBookingRecords() {
 ifstream file("bookings.txt");
 if (!file) {
