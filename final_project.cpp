@@ -83,6 +83,32 @@ void viewBookingRecords();
     return 0; 
 }
 
+// Function to load flights from a file
+void loadFlights(Flight flights[], int& numFlights) {
+    ifstream file("flights.txt");
+
+    if (!file) {
+        cout << "flights.txt file not found. Creating a new file with default data...\n";
+        ofstream newFile("flights.txt");
+        newFile << "101 NewYork 5 3 08:00 12:00\n102 London 3 2 10:00 14:00\n103 Paris 8 5 06:00 10:00\n";
+        newFile.close();
+        file.open("flights.txt");
+    }
+
+    if (!file) {
+        throw runtime_error("Failed to open flights.txt.");
+    }
+
+    while (file >> flights[numFlights].flightNumber >> flights[numFlights].destination
+                >> flights[numFlights].economySeatsAvailable >> flights[numFlights].businessSeatsAvailable
+                >> flights[numFlights].departureTime >> flights[numFlights].arrivalTime) {
+        numFlights++;
+        if (numFlights == 100) break;
+    }
+
+    file.close();
+}
+
 
 void displayFlights(const Flight flights[], int numFlights) {
 cout << "\nAvailable Flights:\n";
