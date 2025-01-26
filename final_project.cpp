@@ -23,6 +23,16 @@ int age;
 string flyingClass;
 };
 
+void loadFlights(Flight flights[], int& numFlights);
+void saveFlights(const Flight flights[], int numFlights);
+void displayFlights(const Flight flights[], int numFlights);
+void bookFlight(Flight flights[], int numFlights);
+void cancelBooking(Flight flights[], int numFlights);
+void addFlight(Flight flights[], int& numFlights);
+void saveBookingRecord(const Passenger& passenger);
+void viewBookingRecords();
+
+
  int choice; 
         do { 
             cout << "\n--- Flight Reservation System ---\n"; 
