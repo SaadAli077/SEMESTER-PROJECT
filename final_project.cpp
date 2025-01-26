@@ -109,6 +109,22 @@ void loadFlights(Flight flights[], int& numFlights) {
     file.close();
 }
 
+// Function to save flights to a file
+void saveFlights(const Flight flights[], int numFlights) {
+    ofstream file("flights.txt");
+
+    if (!file) {
+        throw runtime_error("Failed to save to flights.txt.");
+    }
+
+    for (int i = 0; i < numFlights; i++) {
+        file << flights[i].flightNumber << " " << flights[i].destination << " "
+             << flights[i].economySeatsAvailable << " " << flights[i].businessSeatsAvailable << " "
+             << flights[i].departureTime << " " << flights[i].arrivalTime << "\n";
+    }
+
+    file.close();
+}
 
 void displayFlights(const Flight flights[], int numFlights) {
 cout << "\nAvailable Flights:\n";
