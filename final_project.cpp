@@ -127,19 +127,83 @@ void saveFlights(const Flight flights[], int numFlights) {
 }
 
 void displayFlights(const Flight flights[], int numFlights) {
-cout << "\nAvailable Flights:\n";
-cout << "Flight Number Destination Economy Seats Business Seats Departure
-Time Arrival Time\n";
-cout << "------------------------------------------------------------------------------------------\n";
-for (int i = 0; i < numFlights; i++) {
-cout << flights[i].flightNumber << " "
-<< flights[i].destination << " "
-<< flights[i].economySeatsAvailable << " "
-<< flights[i].businessSeatsAvailable << " "
-<< flights[i].departureTime << " "
-<< flights[i].arrivalTime << "\n";
+    cout << "\nAvailable Flights:\n";
+    cout << "Flight Number    Destination        Economy Seats    Business Seats    Departure Time    Arrival Time\n";
+    cout << "------------------------------------------------------------------------------------------\n";
+
+    for (int i = 0; i < numFlights; i++) {
+        cout << flights[i].flightNumber << "              " 
+             << flights[i].destination << "              " 
+             << flights[i].economySeatsAvailable << "               " 
+             << flights[i].businessSeatsAvailable << "               "
+             << flights[i].departureTime << "              "
+             << flights[i].arrivalTime << "\n";
+    }
 }
+
+// Function to book a flight
+void bookFlight(Flight flights[], int numFlights) {
+    int flightNumber;
+    cout << "Enter the flight number to book: ";
+    cin >> flightNumber;
+
+    bool flightFound = false;
+    for (int i = 0; i < numFlights; i++) {
+        if (flights[i].flightNumber == flightNumber) {
+            flightFound = true;
+
+            string flyingClass;
+            cout << "Choose flying class (Economy/Business): ";
+            cin >> flyingClass;
+
+            if (flyingClass == "Economy") {
+                if (flights[i].economySeatsAvailable > 0) {
+                    flights[i].economySeatsAvailable--;
+                } else {
+                    cout << "No Economy seats available.\n";
+                    return;
+                }
+            } else if (flyingClass == "Business") {
+                if (flights[i].businessSeatsAvailable > 0) {
+                    flights[i].businessSeatsAvailable--;
+                } else {
+                    cout << "No Business seats available.\n";
+                    return;
+                }
+            } else {
+                cout << "Invalid class. Please choose 'Economy' or 'Business'.\n";
+                return;
+            }
+
+            Passenger p;
+            cout << "Enter your name: ";
+            cin >> p.name;
+            p.flightNumber = flightNumber;
+
+            cout << "Enter booking date (DD/MM/YYYY): ";
+            cin >> p.bookingDate;
+
+            cout << "Enter your phone number: ";
+            cin >> p.phoneNumber;
+
+            cout << "Enter your age: ";
+            cin >> p.age;
+
+            p.flyingClass = flyingClass;
+
+            saveBookingRecord(p);
+            cout << "Booking successful! Seats left - Economy: " 
+                 << flights[i].economySeatsAvailable 
+                 << ", Business: " << flights[i].businessSeatsAvailable << "\n";
+            return;
+        }
+    }
+
+    if (!flightFound) {
+        cout << "Flight number not found. Please try again.\n";
+    }
 }
+
 
 void saveBookingRecord(const Passenger& passenger) {
 ofstream file("bookings.txt", ios::app);
