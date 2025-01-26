@@ -89,7 +89,14 @@ cout << flights[i].flightNumber << " "
 }
 }
 
-
+void saveBookingRecord(const Passenger& passenger) {
+ofstream file("bookings.txt", ios::app);
+if (!file) throw runtime_error("Failed to open bookings.txt.");
+file << passenger.flightNumber << " " << passenger.name << " "
+<< passenger.bookingDate << " " << passenger.phoneNumber << " "
+<< passenger.age << " " << passenger.flyingClass << "\n";
+file.close();
+}
 
 void viewBookingRecords() {
 ifstream file("bookings.txt");
